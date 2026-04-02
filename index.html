@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Sanan Husain | iOS Developer</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div id="particles"></div>
+    <!-- HEADER -->
+    <header>
+        <div class="logo">Sanan.dev</div>
+        <nav>
+            <a href="#about">About</a>
+            <a href="#experience">Experience</a>
+            <a href="#projects">Projects</a>
+            <a href="#skills">Skills</a>
+            <a href="#contact">Contact</a>
+        </nav>
+    </header>
+
+    <!-- HERO -->
+    <section class="hero-split">
+
+        <!-- LEFT CONTENT -->
+        <div class="left-content">
+            <h1>Sanan Husain</h1>
+            <p class="typing-text">
+                I am <span id="typing"></span>
+            </p>
+        </div>
+
+        <!-- RIGHT IMAGE -->
+        <div class="right-image">
+
+            <!-- YOUR IMAGE -->
+            <img src="my-image.png" class="profile-img" />
+
+
+            <!-- IPHONE (HIDDEN INITIALLY) -->
+
+
+            <!-- TEXT -->
+            <div class="after-transform">
+                <h2>Building Real Products</h2>
+                <p>Swift • MVVM • Firebase</p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <section class="app-showcase">
+
+        <div class="showcase-container">
+
+            <!-- LEFT (PHONE) -->
+            <div class="phone-area">
+                <div class="iphone-frame">
+                    <img id="appImage" src="projects/speechtimer/speech1.webp" />
+                </div>
+            </div>
+
+            <!-- RIGHT (DETAILS) -->
+            <div class="app-details">
+                <h2 id="appTitle">Speech Timer</h2>
+                <p id="appDesc">
+                    Practice speeches with real-time tracking and feedback.
+                </p>
+
+                <div class="buttons">
+                    <a id="appLink" href="#" target="_blank" class="btn-primary">
+                        View on App Store
+                    </a>
+
+                    <button id="nextApp" class="btn-secondary">
+                        Next →
+                    </button>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ABOUT -->
+    <section id="about">
+        <h2>About Me</h2>
+        <p>
+            iOS developer specializing in UI design and MVVM architecture.
+            Experienced in Swift, SwiftUI, UIKit, and Firebase. Passionate
+            about building scalable and user-friendly mobile applications.
+        </p>
+    </section>
+
+    <!-- EXPERIENCE -->
+    <section id="experience">
+        <h2>Experience</h2>
+
+        <div class="card">
+            <h3>Oodles Technologies</h3>
+            <p>Associate Consultant iOS Developer (2024–2026)</p>
+            <ul>
+                <li>Built iOS apps using Swift, SwiftUI & MVVM</li>
+                <li>Integrated Firebase (Crashlytics, Analytics)</li>
+                <li>Improved app performance and stability</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h3>Mobiloitte Technologies</h3>
+            <p>iOS Developer (2023–2024)</p>
+            <ul>
+                <li>Developed user-friendly applications</li>
+                <li>Worked with cross-functional teams</li>
+            </ul>
+        </div>
+
+    </section>
+
+    <!-- PROJECTS -->
+    <section class="projects-apple">
+        <h2>Projects</h2>
+
+        <div class="project">
+            <h3>Speech Timer</h3>
+            <p>Practice speeches with real-time feedback</p>
+        </div>
+
+        <div class="project">
+            <h3>Crop Diagnostix</h3>
+            <p>AI-powered crop disease detection</p>
+        </div>
+    </section>
+
+    <!-- SKILLS -->
+    <section id="skills">
+        <h2>Skills</h2>
+
+        <div class="skills-grid">
+            <div>Swift</div>
+            <div>UIKit</div>
+            <div>SwiftUI</div>
+            <div>Firebase</div>
+            <div>Core Data</div>
+            <div>REST APIs</div>
+            <div>MVVM</div>
+            <div>Git</div>
+        </div>
+
+    </section>
+
+    <!-- CONTACT -->
+    <section id="contact">
+        <h2>Contact</h2>
+        <p>Email: sananhusain.sh@gmail.com</p>
+        <p>Phone: +91 6307631789</p>
+    </section>
+
+    <!-- 3D CANVAS -->
+    <!-- <canvas id="threeCanvas"></canvas> -->
+
+    <!-- SCRIPTS -->
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2/tsparticles.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="script.js"></script>
+
+</body>
+
+</html>
