@@ -33,16 +33,30 @@ gsap.to(".profile-img", {
 });
 
 
-// 🎯 PROJECT ANIMATION
-gsap.utils.toArray(".project").forEach((el) => {
-  gsap.to(el, {
+// 🎯 PROJECT & CARD ANIMATION
+gsap.utils.toArray(".project, .card").forEach((el) => {
+  gsap.from(el, {
     scrollTrigger: {
       trigger: el,
-      start: "top 80%",
+      start: "top 85%",
     },
-    opacity: 1,
-    y: 0
+    opacity: 0,
+    y: 50,
+    duration: 1,
+    ease: "power3.out"
   });
+});
+
+// 🎯 HERO PARALLAX
+gsap.to(".hero-split", {
+  scrollTrigger: {
+    trigger: ".hero-split",
+    start: "top top",
+    end: "bottom top",
+    scrub: true
+  },
+  y: 100,
+  opacity: 0.2
 });
 
 
@@ -106,7 +120,7 @@ window.onload = function () {
     if (!isDeleting && charIndex === currentText.length + 1) {
       speed = 1200;
       isDeleting = true;
-    } 
+    }
     else if (isDeleting && charIndex === 0) {
       isDeleting = false;
       index = (index + 1) % texts.length;
@@ -284,3 +298,122 @@ document.getElementById("nextApp").addEventListener("click", () => {
     }
   });
 });
+
+// --- THREE.JS 3D BACKGROUND ---
+const canvas = document.getElementById('threeCanvas');
+if (canvas) {
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+  const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
+
+  renderer.setSize(window.innerWidth, window.innerHeight);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+
+  // Particles
+  const geometry = new THREE.BufferGeometry();
+  const particlesCount = 800;
+  const posArray = new Float32Array(particlesCount * 3);
+
+  for (let i = 0; i < particlesCount * 3; i++) {
+    posArray[i] = (Math.random() - 0.5) * 12; // spread
+  }
+
+  geometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
+
+  // Glowing particle material
+  const material = new THREE.PointsMaterial({
+    size: 0.015,
+    color: 0x00ffcc,
+    transparent: true,
+    opacity: 0.8,
+    blending: THREE.AdditiveBlending
+  });
+
+  const particlesMesh = new THREE.Points(geometry, material);
+  scene.add(particlesMesh);
+
+  // Subtle floating geometric shape
+  const torusGeometry = new THREE.TorusGeometry(2, 0.5, 16, 100);
+  const torusMaterial = new THREE.MeshStandardMaterial({
+    color: 0x00aaff,
+    wireframe: true,
+    transparent: true,
+    opacity: 0.15
+  });
+  const torus = new THREE.Mesh(torusGeometry, torusMaterial);
+  torus.position.x = 2;
+  scene.add(torus);
+
+  // Secondary floating shape
+  const icosaGeometry = new THREE.IcosahedronGeometry(1.5, 0);
+  const icosaMaterial = new THREE.MeshStandardMaterial({
+    color: 0x00ffcc,
+    wireframe: true,
+    transparent: true,
+    opacity: 0.1
+  });
+  const icosahedron = new THREE.Mesh(icosaGeometry, icosaMaterial);
+  icosahedron.position.x = -2;
+  scene.add(icosahedron);
+
+  const ambientLight = new THREE.AmbientLight(0xffffff, 1);
+  scene.add(ambientLight);
+
+  camera.position.z = 3;
+
+  // Mouse Interaction
+  let mouseX = 0;
+  let mouseY = 0;
+  let targetX = 0;
+  let targetY = 0;
+  const windowHalfX = window.innerWidth / 2;
+  const windowHalfY = window.innerHeight / 2;
+
+  document.addEventListener('mousemove', (event) => {
+    mouseX = (event.clientX - windowHalfX);
+    mouseY = (event.clientY - windowHalfY);
+  });
+
+  const clock = new THREE.Clock();
+
+  function animate() {
+    requestAnimationFrame(animate);
+    const elapsedTime = clock.getElapsedTime();
+    const scrollY = window.scrollY;
+
+    targetX = mouseX * 0.001;
+    targetY = mouseY * 0.001;
+
+    // Auto rotation
+    particlesMesh.rotation.y = -elapsedTime * 0.03;
+    particlesMesh.rotation.x = -elapsedTime * 0.01;
+
+    torus.rotation.x += 0.002;
+    torus.rotation.y += 0.003;
+
+    icosahedron.rotation.x -= 0.002;
+    icosahedron.rotation.y -= 0.003;
+
+    // Scroll interaction (parallax)
+    camera.position.y = -scrollY * 0.0015;
+
+    // Mouse follow easing
+    particlesMesh.rotation.y += 0.05 * (targetX - particlesMesh.rotation.y);
+    particlesMesh.rotation.x += 0.05 * (targetY - particlesMesh.rotation.x);
+
+    torus.position.x += 0.02 * (targetX - torus.position.x);
+    torus.position.y += 0.02 * (-targetY - torus.position.y);
+
+    icosahedron.position.x += 0.02 * (-targetX - icosahedron.position.x);
+    icosahedron.position.y += 0.02 * (targetY - icosahedron.position.y);
+
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  window.addEventListener('resize', () => {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  });
+}

@@ -1,8 +1,8 @@
 /* GLOBAL */
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, sans-serif;
-  background: radial-gradient(circle at top, #0f0f0f, #000);
+  font-family: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: radial-gradient(circle at top, #0a0a0a, #000);
   color: white;
   scroll-behavior: smooth;
 }
@@ -11,9 +11,9 @@ body::before {
   content: "";
   position: fixed;
   inset: 0;
-  background-image: 
-    linear-gradient(rgba(0,255,200,0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0,255,200,0.05) 1px, transparent 1px);
+  background-image:
+    linear-gradient(rgba(0, 255, 200, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 255, 200, 0.05) 1px, transparent 1px);
   background-size: 40px 40px;
   z-index: -1;
 }
@@ -32,11 +32,13 @@ header {
   justify-content: space-between;
   padding: 15px 30px;
 
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(20px);
+  background: rgba(20, 20, 20, 0.4);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
 
   border-radius: 20px;
-  border: 1px solid rgba(255,255,255,0.1);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
 
   z-index: 100;
 }
@@ -91,14 +93,17 @@ nav a:hover {
   position: absolute;
   top: 50%;
   right: 0;
-  transform: translateY(-50%); /* center vertically */
+  transform: translateY(-50%);
+  /* center vertically */
 
-  width: 520px;
+  width: 100%;
+  max-width: 520px;
 
   object-fit: contain;
   z-index: 2;
 
-  filter: none; /* remove glow */
+  filter: none;
+  /* remove glow */
 }
 
 
@@ -125,8 +130,8 @@ nav a:hover {
   padding: 12px;
 
   box-shadow:
-    0 50px 120px rgba(0,0,0,0.8),
-    inset 0 0 20px rgba(255,255,255,0.05);
+    0 50px 120px rgba(0, 0, 0, 0.8),
+    inset 0 0 20px rgba(0, 255, 200, 0.1);
 }
 
 .screen img {
@@ -144,21 +149,20 @@ nav a:hover {
   overflow: hidden;
   padding: 40px 0;
 
-  mask-image: linear-gradient(
-    to right,
-    transparent,
-    black 10%,
-    black 90%,
-    transparent
-  );
+  mask-image: linear-gradient(to right,
+      transparent,
+      black 10%,
+      black 90%,
+      transparent);
 }
 
 .carousel {
   display: flex;
   gap: 30px;
-  padding: 0 80px;
+  padding: 0 40px;
 
-  width: 800px; /* 🔥 IMPORTANT */
+  width: 100%;
+  /* Responsive Width */
 }
 
 /* CARD */
@@ -170,7 +174,8 @@ nav a:hover {
 .card-inner {
   position: relative;
   width: 100%;
-  height: 420px; /* 🔥 REQUIRED */
+  height: 420px;
+  /* 🔥 REQUIRED */
 
   transform-style: preserve-3d;
   transition: transform 0.8s cubic-bezier(0.4, 0.2, 0.2, 1);
@@ -191,7 +196,7 @@ nav a:hover {
   font-size: 16px;
   font-weight: 500;
 
-  background: linear-gradient(to top, rgba(0,0,0,0.9), transparent);
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.9), transparent);
 }
 
 /* FLIP */
@@ -211,8 +216,8 @@ nav a:hover {
   background: #000;
 
   box-shadow:
-    0 20px 80px rgba(0,0,0,0.9),
-    0 0 40px rgba(0,255,200,0.08);
+    0 20px 80px rgba(0, 0, 0, 0.9),
+    0 0 40px rgba(0, 255, 200, 0.08);
 }
 
 /* IMAGE */
@@ -247,8 +252,8 @@ nav a:hover {
   transform: rotateY(180deg);
 
   box-shadow:
-    0 20px 60px rgba(0,0,0,0.8),
-    inset 0 0 20px rgba(0,255,200,0.1);
+    0 20px 60px rgba(0, 0, 0, 0.8),
+    inset 0 0 20px rgba(0, 255, 200, 0.1);
 }
 
 /* TEXT */
@@ -284,6 +289,7 @@ nav a:hover {
 .project-card:hover img {
   transform: scale(1.05);
 }
+
 /* TRANSFORM TEXT */
 .after-transform {
   position: absolute;
@@ -297,16 +303,25 @@ nav a:hover {
 
 .after-transform h2 {
   font-size: 40px;
-  background: linear-gradient(90deg, #00ffcc, #00aaff);
+  background: linear-gradient(90deg, #00ffcc, #00aaff, #00ffcc);
+  background-size: 200% auto;
   -webkit-background-clip: text;
   color: transparent;
+  animation: shine 3s linear infinite;
+}
+
+@keyframes shine {
+  to {
+    background-position: 200% center;
+  }
 }
 
 /* CINEMATIC LIGHT */
 .hero-split {
   display: flex;
   height: 100vh;
-  align-items: center;   /* vertical center */
+  align-items: center;
+  /* vertical center */
   justify-content: space-between;
   padding: 0 100px;
   position: relative;
@@ -340,17 +355,21 @@ section {
 }
 
 .skills-grid div {
-  background: rgba(255,255,255,0.05);
-  backdrop-filter: blur(10px);
+  background: rgba(20, 20, 20, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   padding: 15px;
-  border-radius: 10px;
+  border-radius: 12px;
   text-align: center;
-  transition: 0.3s;
+  transition: all 0.3s ease;
+  border: 1px solid rgba(255, 255, 255, 0.05);
 }
 
 .skills-grid div:hover {
-  background: rgba(0,255,200,0.1);
-  transform: translateY(-5px);
+  background: rgba(0, 255, 200, 0.08);
+  transform: translateY(-8px) scale(1.05);
+  border: 1px solid rgba(0, 255, 200, 0.3);
+  box-shadow: 0 10px 20px rgba(0, 255, 200, 0.1);
 }
 
 /* IPHONE SECTION */
@@ -370,7 +389,7 @@ section {
   background: black;
   padding: 10px;
   transform: rotateY(20deg) rotateX(10deg);
-  box-shadow: 0 40px 80px rgba(0,0,0,0.6);
+  box-shadow: 0 40px 80px rgba(0, 0, 0, 0.6);
   transition: 0.5s;
 }
 
@@ -389,7 +408,8 @@ canvas {
 .hero-split {
   display: flex;
   height: 100vh;
-  align-items: center;   /* vertical center */
+  align-items: center;
+  /* vertical center */
   justify-content: space-between;
   padding: 0 100px;
   position: relative;
@@ -408,8 +428,17 @@ canvas {
 }
 
 @keyframes blink {
-  0%, 50%, 100% { opacity: 1; }
-  25%, 75% { opacity: 0; }
+
+  0%,
+  50%,
+  100% {
+    opacity: 1;
+  }
+
+  25%,
+  75% {
+    opacity: 0;
+  }
 }
 
 #particles {
@@ -451,8 +480,8 @@ canvas {
   background: linear-gradient(145deg, #111, #000);
 
   box-shadow:
-    0 40px 100px rgba(0,0,0,0.8),
-    inset 0 0 20px rgba(255,255,255,0.05);
+    0 40px 100px rgba(0, 0, 0, 0.8),
+    inset 0 0 20px rgba(255, 255, 255, 0.05);
 }
 
 .iphone-frame img {
@@ -484,19 +513,135 @@ canvas {
 }
 
 .btn-primary {
-  padding: 12px 20px;
+  padding: 12px 24px;
   background: linear-gradient(90deg, #00ffcc, #00aaff);
-  color: black;
+  color: #000;
+  font-weight: 600;
   border-radius: 12px;
   text-decoration: none;
-  margin-right: 10px;
+  margin-right: 15px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(0, 255, 204, 0.3);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 255, 204, 0.5);
 }
 
 .btn-secondary {
-  padding: 12px 20px;
-  background: transparent;
-  border: 1px solid #555;
+  padding: 12px 24px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
   color: white;
+  font-weight: 500;
   border-radius: 12px;
   cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+/* --- 3D TILT EFFECTS --- */
+.card, .project, .iphone-frame {
+  transform-style: preserve-3d;
+  background: rgba(20, 20, 20, 0.6);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255,255,255,0.05);
+  border-radius: 20px;
+  padding: 30px;
+}
+
+.card-content, .project-content {
+  transform: translateZ(40px);
+}
+
+/* --- MOBILE RESPONSIVENESS --- */
+@media (max-width: 900px) {
+  header {
+    width: 90%;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px;
+  }
+  nav {
+    margin-top: 10px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+  nav a {
+    margin: 0 10px;
+  }
+  .hero-split {
+    flex-direction: column;
+    padding: 160px 30px 60px;
+    height: auto;
+    text-align: center;
+  }
+  .left-content {
+    align-items: center;
+  }
+  .left-content h1 {
+    font-size: 50px;
+  }
+  .right-image {
+    width: 100%;
+    justify-content: center;
+    margin-top: 40px;
+  }
+  .profile-img {
+    position: relative;
+    top: 0;
+    transform: none;
+    width: 80%;
+    max-width: 400px;
+  }
+  .after-transform {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    margin-top: 20px;
+    text-align: center;
+  }
+  .after-transform h2 {
+    font-size: 28px;
+  }
+  section, .app-showcase {
+    padding: 80px 30px;
+  }
+  .showcase-container {
+    flex-direction: column;
+  }
+  .app-details {
+    padding-left: 0;
+    margin-top: 40px;
+    text-align: center;
+  }
+  .skills-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .left-content h1 {
+    font-size: 40px;
+  }
+  .skills-grid {
+    grid-template-columns: 1fr;
+  }
+  .buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+  }
+  .btn-primary {
+    margin-right: 0;
+  }
 }

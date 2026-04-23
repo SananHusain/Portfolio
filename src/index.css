@@ -1,0 +1,21 @@
+@import "tailwindcss";
+
+@theme {
+  --color-neon: #00ffcc;
+  --color-neon-blue: #00aaff;
+  --font-outfit: "Outfit", sans-serif;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-outfit), sans-serif;
+  background-color: #050505;
+  color: white;
+  overflow-x: hidden;
+  overscroll-behavior: none;
+}
+
+/* Hide scrollbar for a seamless 100vh slide effect */
+::-webkit-scrollbar {
+  display: none;
+}
