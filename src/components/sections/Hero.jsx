@@ -44,7 +44,7 @@ export default function Hero() {
         className="hidden md:block relative w-[500px]"
       >
         {/* Placeholder for 3D elements or floating images */}
-        <img src="/my-image.png" alt="Sanan Husain" className="w-full object-contain relative z-10 filter drop-shadow-2xl" />
+        <img src={`${import.meta.env.BASE_URL}my-image.png`} alt="Sanan Husain" className="w-full object-contain relative z-10 filter drop-shadow-2xl" />
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full h-full bg-gradient-to-r from-[var(--color-neon)] to-[var(--color-neon-blue)] rounded-full blur-[120px] opacity-20 -z-10"></div>
       </motion.div>
     </section>

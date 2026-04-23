@@ -5,7 +5,7 @@ const projects = [
   {
     title: "Speech Timer",
     desc: "Practice speeches with real-time tracking and feedback.",
-    img: "/projects/speechtimer/speech1.webp"
+    img: `${import.meta.env.BASE_URL}projects/speechtimer/speech1.webp`
   },
   {
     title: "Crop Diagnostix",
