@@ -1,4 +1,4 @@
-import { motion, useMotionValue, useTransform } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { useState } from 'react'
 
 const projects = [
@@ -34,68 +34,87 @@ const projects = [
   }
 ]
 
-function ProjectCard({ project }) {
-  const x = useMotionValue(200)
-  const y = useMotionValue(200)
-
-  const rotateX = useTransform(y, [0, 400], [10, -10])
-  const rotateY = useTransform(x, [0, 400], [-10, 10])
-
-  function handleMouse(event) {
-    const rect = event.currentTarget.getBoundingClientRect();
-    x.set(event.clientX - rect.left);
-    y.set(event.clientY - rect.top);
-  }
+function ExpandingGallery() {
+  const [active, setActive] = useState(0)
 
   return (
-    <motion.div
-      style={{ rotateX, rotateY, transformStyle: "preserve-3d" }}
-      onMouseMove={handleMouse}
-      onMouseLeave={() => { x.set(200); y.set(200); }}
-      onClick={() => window.open(project.link, '_blank')}
-      className="relative w-full max-w-[320px] h-[500px] rounded-3xl bg-white/5 border border-white/10 overflow-hidden cursor-pointer backdrop-blur-md"
-    >
-      <div 
-        style={{ transform: "translateZ(50px)" }}
-        className="absolute inset-4 rounded-2xl overflow-hidden pointer-events-none"
-      >
-        <img src={project.img} alt={project.title} className="w-full h-full object-cover opacity-80" />
-        <div className="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
-        <div className="absolute bottom-0 left-0 w-full p-6">
-          <h3 className="text-2xl font-bold text-white mb-2">{project.title}</h3>
-          <p className="text-gray-300 text-sm leading-relaxed">{project.desc}</p>
-        </div>
-      </div>
-    </motion.div>
+    <div className="flex flex-col md:flex-row w-full max-w-7xl h-[70vh] gap-4 px-6 md:px-12">
+      {projects.map((project, index) => {
+        const isActive = active === index;
+        return (
+          <motion.div
+            key={index}
+            layout
+            onHoverStart={() => setActive(index)}
+            onClick={() => {
+              if (isActive) {
+                window.open(project.link, '_blank')
+              } else {
+                setActive(index)
+              }
+            }}
+            initial={{ opacity: 0, y: 50 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ type: "spring", stiffness: 300, damping: 30 }}
+            className={`relative rounded-[2rem] overflow-hidden cursor-pointer flex items-end ${isActive ? 'flex-[4] md:flex-[5]' : 'flex-[1]'}`}
+            style={{ 
+              backgroundImage: `url(${project.img})`,
+              backgroundSize: 'cover',
+              backgroundPosition: 'center'
+            }}
+          >
+            {/* Dynamic Overlay */}
+            <div className={`absolute inset-0 transition-colors duration-500 ${isActive ? 'bg-gradient-to-t from-black via-black/40 to-transparent' : 'bg-black/60 hover:bg-black/40'}`}></div>
+            
+            {/* Content Area */}
+            <motion.div 
+              layout
+              className="relative p-6 md:p-8 w-full h-full flex items-end"
+            >
+              {isActive ? (
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: 0.2 }}
+                  className="w-full"
+                >
+                  <h3 className="text-3xl md:text-4xl font-bold text-white mb-3 drop-shadow-lg">{project.title}</h3>
+                  <p className="text-gray-200 text-base md:text-lg leading-relaxed drop-shadow-md max-w-xl mb-6 hidden md:block">{project.desc}</p>
+                  <button 
+                    onClick={(e) => { e.stopPropagation(); window.open(project.link, '_blank'); }}
+                    className="px-6 py-3 bg-white/10 backdrop-blur-md border border-white/20 text-white font-semibold rounded-full hover:bg-[var(--color-neon)] hover:text-black hover:border-[var(--color-neon)] transition-all shadow-lg"
+                  >
+                    View on App Store
+                  </button>
+                </motion.div>
+              ) : (
+                <div className="hidden md:flex items-center justify-center w-full h-full absolute inset-0">
+                  <h3 className="text-white/80 font-bold text-2xl whitespace-nowrap -rotate-90 origin-center drop-shadow-lg tracking-widest uppercase">
+                    {project.title}
+                  </h3>
+                </div>
+              )}
+            </motion.div>
+          </motion.div>
+        )
+      })}
+    </div>
   )
 }
 
 export default function Projects() {
   return (
-    <section id="projects" className="w-full min-h-screen snap-center flex flex-col items-center justify-center py-20 px-6">
+    <section id="projects" className="w-full h-screen snap-center flex flex-col items-center justify-center py-10">
       <motion.h2 
         initial={{ opacity: 0, y: -20 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: false }}
-        className="text-4xl md:text-5xl font-bold mb-16"
+        className="text-4xl md:text-6xl font-bold mb-10 bg-gradient-to-r from-white to-gray-500 text-transparent bg-clip-text"
       >
         Featured Projects
       </motion.h2>
       
-      <div className="flex overflow-x-auto snap-x snap-mandatory gap-8 pb-12 px-10 w-full max-w-full items-center [&::-webkit-scrollbar]:hidden">
-        {projects.map((p, i) => (
-          <motion.div
-            key={i}
-            className="snap-center shrink-0 perspective-[1000px] first:ml-auto last:mr-auto"
-            initial={{ opacity: 0, x: 50 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            transition={{ delay: i * 0.1 }}
-            viewport={{ once: false, margin: "-10%" }}
-          >
-            <ProjectCard project={p} />
-          </motion.div>
-        ))}
-      </div>
+      <ExpandingGallery />
     </section>
   )
 }
