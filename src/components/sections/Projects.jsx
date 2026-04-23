@@ -82,13 +82,14 @@ export default function Projects() {
         Featured Projects
       </motion.h2>
       
-      <div className="flex flex-wrap justify-center gap-12 w-full max-w-6xl perspective-[1000px]">
+      <div className="flex overflow-x-auto snap-x snap-mandatory gap-8 pb-12 px-10 w-full max-w-full items-center [&::-webkit-scrollbar]:hidden">
         {projects.map((p, i) => (
           <motion.div
             key={i}
-            initial={{ opacity: 0, y: 50 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: i * 0.2 }}
+            className="snap-center shrink-0 perspective-[1000px] first:ml-auto last:mr-auto"
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ delay: i * 0.1 }}
             viewport={{ once: false, margin: "-10%" }}
           >
             <ProjectCard project={p} />
